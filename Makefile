@@ -50,18 +50,30 @@ zoneinfo: tzdata tzrearguard
 	./vzic/vzic-master/vzic --pure --output-dir https/zoneinfo-global --url-prefix https://www.tzurl.org/zoneinfo-global  && \
 		./vzic/vzic-master/vzic --output-dir https/zoneinfo-outlook-global --url-prefix https://www.tzurl.org/zoneinfo-outlook-global
 
-website: zoneinfo
+website:
 	website/generate-available-ids.sh http/zoneinfo && \
 		website/generate-directory-listing.sh http/zoneinfo
+
+	website/generate-available-ids.sh http/zoneinfo-global && \
+		website/generate-directory-listing.sh http/zoneinfo-global
 
 	website/generate-available-ids.sh http/zoneinfo-outlook && \
 		website/generate-directory-listing.sh http/zoneinfo-outlook
 
+	website/generate-available-ids.sh http/zoneinfo-outlook-global && \
+		website/generate-directory-listing.sh http/zoneinfo-outlook-global
+
 	website/generate-available-ids.sh https/zoneinfo && \
 		website/generate-directory-listing.sh https/zoneinfo
 
+	website/generate-available-ids.sh https/zoneinfo-global && \
+		website/generate-directory-listing.sh https/zoneinfo-global
+
 	website/generate-available-ids.sh https/zoneinfo-outlook && \
 		website/generate-directory-listing.sh https/zoneinfo-outlook
+
+	website/generate-available-ids.sh https/zoneinfo-outlook-global && \
+		website/generate-directory-listing.sh https/zoneinfo-outlook-global
 
 tzalias:
 	awk '/^Link/ {print $$3,"="$$2}' tzdb/tzdata$(TZDB_VERSION)-rearguard/backward > tz.alias
